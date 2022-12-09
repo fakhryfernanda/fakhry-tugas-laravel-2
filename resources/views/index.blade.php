@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hello World</h1>
-    <a href="/product" class="underline text-sky-500">See Our Products</a>
-</body>
-</html>
+@extends('layout')
+
+@section('content')
+    <div class="container mx-auto w-fit mt-10">
+        <h1 class="text-5xl text-center mb-10">Selamat Datang</h1>
+        <a href="/product" class="text-xl underline text-blue-600">Lihat Produk</a>
+        <img src="images/banner.webp" alt="" width="500px">
+    </div>
+@endsection
