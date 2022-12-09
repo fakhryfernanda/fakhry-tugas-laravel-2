@@ -13,7 +13,7 @@
         <button class="px-4 py-2 text-white bg-orange-500 rounded-lg">
             <a href="/product/add">Tambah produk</a>
         </button>
-        <div class="mt-5 flex gap-4">
+        <div class="mt-5 flex flex-wrap gap-4">
             @foreach ($products as $product)
                 <div class="w-[250px] shadow-lg p-5 text-center">
                     <div class="mb-4">
@@ -21,12 +21,12 @@
                     </div>
                     <h2 class="text-2xl font-bold">{{ $product->name }}</h2>
                     <p>{{ $product->description }}</p>
-                    <p class="text-orange-400">Rp{{ $product->price }}</p>
+                    <p class="text-orange-500">Rp{{ number_format($product->price) }}</p>
                     <div class="mx-auto mt-4 flex gap-4 w-fit">
-                        <button class="w-20 py-2 px-4 bg-orange-200 rounded-md">
+                        <button class="w-20 py-2 px-4 bg-orange-400 text-white rounded-md">
                             <a href="/product/detail/{{ $product->id }}">Edit</a>
                         </button>
-                        <button class="w-20 py-2 px-4 bg-orange-200 rounded-md">
+                        <button class="w-20 py-2 px-4 bg-orange-400 text-white rounded-md">
                             <a href="/product/delete/{{ $product->id }}">Delete</a>
                         </button>
                     </div>
