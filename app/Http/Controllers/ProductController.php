@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -21,13 +22,6 @@ class ProductController extends Controller
 
     public function create(Request $request)
     {
-        // Product::create([
-        //     'name' => $request->input("name"),
-        //     'description' => $request->input("description"),
-        //     'price' => $request->input("price"),
-        //     'file_name' => $request->input("image")
-        // ]);
-
         $payload = [
             'name' => $request->input("name"),
             'description' => $request->input("description"),
@@ -36,6 +30,33 @@ class ProductController extends Controller
         ];
 
         Product::query()->create($payload);
-        return redirect()->back(); //ke halaman sebelumnya
+        return redirect("/product"); // ke halaman product
     }
+
+    function detail($id) {
+        $product = Product::query()->where("id", $id)->first();
+        return view("detail", ["product" => $product]);
+    } //menampilkan sebuah data
+
+    public function update(Request $request, $id) {
+        $payload = [
+            'name' => $request->input("name"),
+            'description' => $request->input("description"),
+            'price' => $request->input("price"),
+        ];
+
+        if ($request->hasFile("image")) {
+            $payload["file_name"] = $request->file("image")->store("images", "public");
+        }
+
+        Product::where("id", $id)->update($payload);
+        return redirect("/product"); // ke halaman product
+    }
+
+    function delete($id) {
+        $product = Product::query()->where("id", $id)->first();
+        $product->delete();
+        Storage::disk('public')->delete($product->file_name);
+        return redirect('/product'); // ke halaman sebelumnya
+    } //menghapus data
 }
