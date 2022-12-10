@@ -5,14 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
-    return view('index');
+    return view('home');
 });
-
-// Route::get('/product', function () {
-//     return view('product', [
-//         "products" => Product::all()
-//     ]);
-// });
 
 Route::prefix("product")->group(function(){
     Route::get("/", [ProductController::class, 'all']);

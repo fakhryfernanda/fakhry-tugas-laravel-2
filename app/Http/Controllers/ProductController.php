@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function all()
     {
-        return view('product', [
+        return view('product/index', [
             "products" => Product::all(),
             "title" => "Products"
         ]);
@@ -18,7 +18,7 @@ class ProductController extends Controller
 
     public function add()
     {
-        return view('add', [
+        return view('product/add', [
             "title" => "Add Product"
         ]);
     }
@@ -33,12 +33,12 @@ class ProductController extends Controller
         ];
 
         Product::query()->create($payload);
-        return redirect("/product"); // ke halaman product
+        return redirect("product"); // ke halaman product
     }
 
     function detail($id) {
         $product = Product::query()->where("id", $id)->first();
-        return view("detail", [
+        return view("product/detail", [
             "title" => "Product | " . $product->name,
             "product" => $product
         ]);
@@ -56,13 +56,13 @@ class ProductController extends Controller
         }
 
         Product::where("id", $id)->update($payload);
-        return redirect("/product"); // ke halaman product
+        return redirect("product"); // ke halaman product
     }
 
     function delete($id) {
         $product = Product::query()->where("id", $id)->first();
         $product->delete();
         Storage::disk('public')->delete($product->file_name);
-        return redirect('/product'); // ke halaman sebelumnya
+        return redirect('product'); // ke halaman sebelumnya
     } //menghapus data
 }
