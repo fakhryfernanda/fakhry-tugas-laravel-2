@@ -11,13 +11,16 @@ class ProductController extends Controller
     public function all()
     {
         return view('product', [
-            "products" => Product::all()
+            "products" => Product::all(),
+            "title" => "Products"
         ]);
     }
 
     public function add()
     {
-        return view('add');
+        return view('add', [
+            "title" => "Add Product"
+        ]);
     }
 
     public function create(Request $request)
@@ -35,7 +38,10 @@ class ProductController extends Controller
 
     function detail($id) {
         $product = Product::query()->where("id", $id)->first();
-        return view("detail", ["product" => $product]);
+        return view("detail", [
+            "title" => "Product | " . $product->name,
+            "product" => $product
+        ]);
     } //menampilkan sebuah data
 
     public function update(Request $request, $id) {
