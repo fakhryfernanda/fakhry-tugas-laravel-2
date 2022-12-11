@@ -2,6 +2,7 @@
 
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
@@ -18,4 +19,12 @@ Route::prefix("product")->group(function(){
     Route::get("/delete/{id}", [ProductController::class, 'delete']);
 });
 
-// Route::get('/product', [ProductController::class, 'all']);
+Route::prefix("blog")->group(function(){
+    Route::get("/", [PostController::class, 'all']);
+    Route::get("/add", [PostController::class, 'add']);
+    Route::get("/detail/{id}", [PostController::class, 'detail']);
+    
+    Route::post("/create", [PostController::class, 'create']);
+    Route::put("/update/{id}", [PostController::class, 'update']);
+    Route::get("/delete/{id}", [PostController::class, 'delete']);
+});
